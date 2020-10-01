@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>HW8</title>
+        <style>
+            .contentBox
+            {
+                margin: 5px;
+            }
+            
+        </style>
+        <script>
+            function getStart()
+            {
+                
+            }
+            
+            function getJSON()
+            {
+                document.getElementById("contentBox").innerHTML = "Loading...";
+                
+                var xmlHttp = new XMLHttpRequest();
+                
+                xmlHttp.onload = function()
+                {
+                    if(xmlHttp.status == 200)
+                    {
+                        var contentBox = document.getElementById("contxentBox");
+                        
+                        var response = xmlHttp.responseText;
+                        
+                        //console.dir(response);
+                        
+                        response = JSON.parse(response);
+                        
+                        contenBox.innerHTML = response.name + "was a" + response.diet;
+                        
+                        xmlHttp.open("GET", "babbage.cs.missouri.edu/~schuylerj/a8/webService.php?content=data&format=json", true);
+                        xmlHttp.send();
+                        
+                    }
+                };
+                
+            }
+            
+            function getXML()
+            {
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div class = "contentBox"></div>
+        <button type="button" onclick="getStart()">Home</button>
+        <button type="button" onclick="getXML()">XML Dinos</button>
+        <button type="button" onclick="getJason">JSON Dinos</button>
+    </body>
+</html>
