@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HW8</title>
+        <style>
+	#contentBox
+            {
+                margin: 5px;
+            }
+            
+	#container
+	{
+		background-color: green;
+	
+		width: 450px;
+		height: 250px;
+		border-style: solid;
+		border-color: black;
+		border-radius: 15px;
+		margin: 30px  auto;
+		text-align: center;
+		
+	}
+
+	ul
+	{	
+		text-align: left;
+		padding-top: 20px;	
+	}
+
+	.button
+	{
+		background-color: lime;
+		margin-left: 10px;
+		margin-right: 10px;
+		border-radius: 5px;
+		width: 100px;
+		height: 35px;
+		
+		
+		
+	}
+        </style>
+        <script>
+
+
+            function getStart()
+            {
+               
+		document.getElementById("contentBox").innerHTML = "Loading...";
+
+		var xmlHttp = new XMLHttpRequest();
+
+		xmlHttp.onload = function()
+		{
+			if(xmlHttp.status == 200)
+			{
+				var contentBox = document.getElementById("contentBox");
+
+				var response = xmlHttp.responseText;
+
+				contentBox.innerHTML = response;
+
+			}
+		};
+
+		xmlHttp.open("GET", "http://babbage.cs.missouri.edu/~schuylerj/a8/webService.php?content=home", true);
+		xmlHttp.send();
+
+
+            }
+            
+            function getJSON()
+            {
+                document.getElementById("contentBox").innerHTML = "Loading...";
+                
+                var xmlHttp = new XMLHttpRequest();
+                
+                xmlHttp.onload = function()
+                {
+                    if(xmlHttp.status == 200)
+                    {
+                        var contentBox = document.getElementById("contentBox");
+                        
+			contentBox.innerHTML = "";
+
+                        var response = xmlHttp.responseText;
+                        
+                        console.dir(response);
+                        
+                        response = JSON.parse(response);
+
+			var length = response.length;
+
+				
+			
+			for(i=0; i<length; i++)
+			{
+				var node = document.createElement("li");
+				var textNode = document.createTextNode(response[i].name + " was a " + response[i].diet);
+				node.appendChild(textNode);
+				contentBox.appendChild(node);
+			
+			}
+			  
+		    }
+		};
+                        
+                xmlHttp.open("GET", "http://babbage.cs.missouri.edu/~schuylerj/a8/webService.php?content=data&format=json", true);
+                xmlHttp.send();
+                      
+                
+            }
+            
+            function getXML()
+            {
+		document.getElementById("contentBox").innerHTML = "Loading...";
+
+		var xmlHttp = new XMLHttpRequest();
+
+		xmlHttp.onload = function()
+		{
+			if(xmlHttp.status == 200)
+			{
+				var contentBox = document.getElementById("contentBox");
+
+				contentBox.innerHtml = "";
+
+				var response = xmlHttp.responseXML;
+
+				txt="";
+
+				x=response.getElementsByTagName("name");
+
+				y=response.getElementsByTagName("period");
+
+				for(i=0; i<x.length; i++)
+				{
+					txt = txt + "<li>" + x[i].childNodes[0].nodeValue + " lived during the " + y[i].childNodes[0].nodeValue + "</li>";
+
+				}
+
+				contentBox.innerHTML = txt;
+
+		
+			
+			
+			
+			
+		
+
+			}
+		};
+
+		xmlHttp.open("GET", "http://babbage.cs.missouri.edu/~schuylerj/a8/webService.php?content=data&format=xml", true);
+		xmlHttp.send();
+                
+            }
+        </script>
+    </head>
+    <body>
+    	<div id = "container">
+
+		<h1>Dino Web Application</h1>
+        	<button type="button"  class = "button" onclick = "getStart()">Home</button>
+        	<button type="button" class = "button" onclick = "getXML()">XML Dinos</button>
+        	<button type="button" class = "button" onclick = "getJSON()">JSON Dinos</button>
+		<ul id = "contentBox"></ul>
+	</div>
+    </body>
+</html>
