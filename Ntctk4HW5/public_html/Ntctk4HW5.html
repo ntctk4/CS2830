@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Editor</title>
+        <style>
+            #preview
+            {
+             border: 2px solid black;
+             border-style: dotted;
+             width: 900px;
+             height: 591px;
+             padding: 20px 20px;
+             margin-top: 5px
+            }
+           
+            .textarea
+            {
+                width: 400px;
+                height: 304px;
+                margin: 5px 20px 5px 10px;
+            }
+            
+            .button
+            {
+                font-weight: bold;
+                width: 100px;
+                margin: 0 18px 0;
+            }
+            
+            .box
+            {
+                float: left;
+            }
+            
+            .group:after
+           {
+               content: "";
+               display: table;
+               clear: both;
+           }
+        </style>
+        
+        <style id="style"></style>
+        
+        <script>
+            function launch()
+            {
+                document.getElementById("preview").innerHTML = document.getElementById("html").value;
+            }
+            
+            var boolean = true;
+            
+            function toggle()
+            {
+              
+                
+                if(boolean === true)
+                {
+                    document.querySelector("#style").innerHTML = document.getElementById("css").value;
+                    boolean = false;
+                }
+                
+                else
+                {
+                    document.querySelector("#style").innerHTML = "";
+                    boolean = true;
+                }
+            }
+            
+            function del()
+            {
+                document.getElementById("preview").innerHTML = "";
+                document.getElementById("html").value = "";
+                document.getElementById("css").value = "";
+            }
+            
+        </script>
+       
+    </head>
+    <body>
+       
+        
+        <div class="group">
+            
+            
+            <div class="box">
+                <div>
+                    <textarea class="textarea"  id= "css" placeholder="CSS..."></textarea>
+                </div>
+       
+                <div>
+                    <textarea class="textarea" id= "html" placeholder="HTML..."></textarea>
+                </div>
+            </div>
+        
+            
+            <div id="preview" class="box"></div>
+        </div>
+        
+        
+        <button type="button" onclick="launch()" class="button">Launch</button>
+        <button type="button" onclick="del()" class="button">Clear</button>
+        <button type="button" onclick="toggle()" class="button">Toggle</button>
+        
+        
+    </body>
+</html>
